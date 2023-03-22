@@ -8,7 +8,7 @@
   flex-direction: column;
 }
 
-.App > input {
+.App>input {
   margin: 10px;
   height: 30px;
   font: 1em sans-serif;
@@ -29,4 +29,88 @@
   width: 50%;
   justify-content: space-around;
   border-radius: 8px;
+}
+.titleDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.passwordContainer{
+  align-items: center;
+  width: 60vw;
+  background-color: white;
+  border: 1px solid #404040;
+  border-bottom: none;
+  padding: 0 32px;
+}
+.passwordContainer:last-child {
+  border-bottom: 1px solid #404040;
+  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+.passwordContainer:first-child {
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+}
+
+.titleDiv>p {
+  font-size: 24px;
+  font-family: sans-serif;
+}
+
+.titleDiv>img {
+  height: 24px;
+}
+.expanded {
+  transform: rotate(180deg);
+}
+
+.inputBox {
+  background-color: #f8f9fa;
+  width: 50%;
+  height: 60px;
+  padding-left: 32px;
+  padding-right: 32px;
+  font-size: 20px;
+  text-align: center;
+  float: right;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.deleteBtn {
+  float: right;
+  height: 36px;
+  padding: 0px 24px;
+  font-size: 16px;
+  background-color: white;
+  color: #1a73e8;
+  border: 1px solid #40404020;
+}
+
+.updateBtn {
+  float: right;
+  margin-right: 32px;
+  height: 36px;
+  padding: 0px 24px;
+  background-color: white;
+  color: #1a73e8;
+  border: 1px solid #40404020;
+  font-size: 16px;
+}
+
+.updateBtn:hover, .deleteBtn:hover {
+  background-color: #e8f3ff;
+  cursor: pointer;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }

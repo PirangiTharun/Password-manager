@@ -17,9 +17,9 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/addPassword',(req,res)=>{
-    const {password, title} = req.body;
-    db.query("INSERT INTO passwords (password, title) VALUES (?,?)",
-    [password, title],
+    const {password, title, username} = req.body;
+    db.query("INSERT INTO passwords (title, username, password) VALUES (?,?,?)",
+    [title, username, password],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -27,6 +27,30 @@ app.post('/addPassword',(req,res)=>{
         res.send({status: 'success',data:null});
       }
     });
+})
+
+app.put('/updatePassword',(req,res)=>{
+  const {id, password, title, username} = req.body;
+  db.query("UPDATE passwords SET title=?, username=?, password=? WHERE id=?", [title, username, password, id],
+  (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send({status: 'Updated successfully',data:null});
+    }
+  });
+})
+
+app.post('/deleteRecord',(req,res)=>{
+  const {id} = req.body;
+  db.query(`DELETE FROM passwords  WHERE id=${id}`,
+  (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send({status: 'Deleted successfully',data:null});
+    }
+  });
 })
 
 app.get('/getAllRecords',(req,res)=>{

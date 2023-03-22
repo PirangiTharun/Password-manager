@@ -2,29 +2,30 @@ import React, {useEffect} from 'react';
 import './App.css';
 import Axios from 'axios';
 import * as CryptoJS from 'crypto-js';
+import Password from './components/Password';
 
 function App() {
   const [title, setTitle] = React.useState('');
+  const [userName, setUserName] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [records, setRecords] = React.useState('');
-
-
-  useEffect(()=>{
-    
-  },[]);
 
   const handleChange = (e) => {
     if(e.target.name==='title'){
       setTitle(e.target.value);
+    }else if(e.target.name==='username'){
+      setUserName(e.target.value);
     }else{
       setPassword(e.target.value);
     }
   }
   const handleSubmit = () => {
-    const requestPayload = {password: CryptoJS.AES.encrypt(password,'thisissecretpassword').toString(), title:title};
+    if(title.length===0 || userName.length===0 || password.length===0) return;
+    const requestPayload = {title:title,username: userName, password: CryptoJS.AES.encrypt(password,'thisissecretpassword').toString()};
     Axios.post('http://localhost:3001/addPassword',requestPayload);
     setPassword('');
     setTitle('');
+    setUserName('');
   }
 
   /**
@@ -43,26 +44,11 @@ function App() {
       console.warn(err);
     })
   }
-  const decryptPassword = (password)=>{
-    const decrypted = CryptoJS.AES.decrypt(password, 'thisissecretpassword');
-    if (decrypted) {
-      try {
-        const str = decrypted.toString(CryptoJS.enc.Utf8);
-        if (str.length > 0) {
-          return str;
-        } else {
-          return 'error 1';
-        } 
-      } catch (e) {
-        return 'error 2';
-      }
-    }
-    return 'error 3';
-  }
   return (
     <>
     <div className='App'>
       <input name={'title'} onChange={handleChange} type={'text'} value={title} placeholder="Title" />
+      <input name={'username'} onChange={handleChange} type={'text'} value={userName} placeholder="User name" />
       <input name={'password'} onChange={handleChange} type={'password'} value={password} placeholder="Password" />
       <button type='submit' onClick={handleSubmit}>Submit</button>
     </div>
@@ -70,10 +56,7 @@ function App() {
       <button type='submit' onClick={getData}>Get all records</button>
       <div className='recordContainer'>
       {records && records.length>0 && records.map((record)=>(
-        <div key={record.id} className={'record'}>
-          <p>Title: {record.title}</p>
-          <p>Password: {decryptPassword(record.password)}</p>
-        </div>
+        <Password key={record.id} record={record}/>
       ))}
       </div>
     </div>
