@@ -53,7 +53,7 @@ function App() {
       <button type='submit' onClick={handleSubmit}>Submit</button>
     </div>
     <div className='App'>
-      <button type='submit' onClick={getData}>Get all records</button>
+      <button type='submit' onClick={getData}>Refresh records</button>
       <div className='recordContainer'>
       {records && records.length>0 && records.map((record)=>(
         <Password key={record.id} record={record}/>
